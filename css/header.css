@@ -1,0 +1,13 @@
+.header-container h1 {
+  text-align: center;
+  color: white;
+  font-size: 32px;
+}
+.header-container span {
+  color: green;
+}
+.logo {
+  background: url(../img/logo-projetoRotina.png) no-repeat center;
+  background-size: cover;
+  width: 100%;
+}

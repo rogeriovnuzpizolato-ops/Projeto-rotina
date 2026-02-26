@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="" />
+    <title>Projeto-Rotina</title>
+  </head>
+  <body>
+    <header class="header-container">
+      <h1>Minhas <span>atividades</span></h1>
+      <div class="logo"></div>
+    </header>
+    <main>
+      <div class="main-container">
+        <input
+          class="input-atividade"
+          id="atividade"
+          type="text"
+          placeholder="Digite suas atividades aqui"
+        />
+        <button class="botao" id="addButton" onclick="adicionarAtividade()">
+          adicionar
+        </button>
+      </div>
+    </main>
+    <section class="lista">
+      <ul id="listaDeAtividades"></ul>
+    </section>
+    <div class="text-area">
+      <h2>detalhes <span> do dia</span></h2>
+
+      <textarea
+        name="detalhes do dia"
+        id="reflexao"
+        placeholder="detalhes do seu dia."
+      ></textarea>
+
+      <button class="botao" onclick="salvarReflexao()">salvar</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="textArea.js"></script>
+  </body>
+</html>
