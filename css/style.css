@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: black;
+  padding: 24px;
+}
+.header-container h1 {
+  text-align: center;
+  color: white;
+  font-size: 32px;
+}
+.header-container span {
+  color: green;
+}
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.input-atividade {
+  margin: 25px;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  border: solid 2px green;
+  border-radius: 16px;
+}
+.botao {
+  width: 70px;
+  height: 30px;
+  margin-bottom: 24px;
+  border: solid 2px green;
+  border-radius: 16px;
+  color: green;
+}
+.lista {
+  padding: 24px;
+  background-color: rgba(128, 128, 128, 0.589);
+}
+.lista input {
+  margin: 10px;
+  width: 16px;
+}
+.lista ul {
+  list-style: none;
+}
+.lista li {
+  color: white;
+}
+.text-area{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.text-area h2{
+  color: white;
+  margin-top: 16px;
+}
+.text-area span{
+  color: green;
+}
+.text-area textarea{
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  border: none;
+  border-radius: 16px;
+}
