@@ -69,3 +69,10 @@ function limparAtividades(){
     lista.innerHTML='';
   }
 }
+
+
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("service-worker.js")
+  .then(()=> console.log("service worker registrado"))
+  .catch(err => console.log("erro", err));
+}
