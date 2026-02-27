@@ -11,13 +11,28 @@
   border: solid 2px green;
   border-radius: 16px;
 }
+.botoes{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
 .botao {
-  width: 70px;
-  height: 30px;
+  width: 100px;
+  height: 60px;
   margin-bottom: 24px;
   border: solid 2px green;
   border-radius: 16px;
   color: green;
+}
+.botao-limpar {
+  width: 100px;
+  height: 60px;
+  margin-bottom: 24px;
+  border: solid 2px orangered;
+  border-radius: 16px;
+  color: orangered;
 }
 @media screen and (min-width:768px){
   .input-atividade{
