@@ -19,3 +19,70 @@
   border-radius: 16px;
   color: green;
 }
+@media screen and (min-width:768px){
+  .input-atividade{
+    height: 64px;
+    font-size: 24px;
+  }
+  .botao{
+    width: 100px;
+    height: 60px;
+    font-size: 20px;
+  }
+}
+/* css da div.lista começa aqui */
+.lista {
+  padding: 24px;
+  background-color: rgba(128, 128, 128, 0.589);
+}
+.lista input {
+  margin: 10px;
+  width: 16px;
+}
+.lista ul {
+  list-style: none;
+}
+.lista li {
+  color: white;
+}
+@media screen and (min-width:768px){
+  .lista input {
+    margin: 20px;
+    width: 24px;
+    height: 24px;
+  }
+  .lista li{
+    font-size: 24px;
+  }
+}
+/* css .text-area começa aqui */
+.text-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.text-area h2 {
+  color: white;
+  margin-top: 16px;
+}
+.text-area span {
+  color: green;
+}
+.text-area textarea {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  border: none;
+  border-radius: 16px;
+}
+@media screen and (min-width:768px){
+  .text-area h2 {
+    font-size: 48px;
+  }
+  .text-area textarea{
+    font-size: 24px;
+  }
+}
