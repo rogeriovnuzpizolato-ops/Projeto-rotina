@@ -1,7 +1,13 @@
-.header-container h1 {
-  text-align: center;
+.horaAtual h1 {
+  text-align: start;
+  width: 100%;
   color: white;
-  font-size: 32px;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+.header-container h2 {
+  color:white;
+  text-align: center;
 }
 .header-container span {
   color: green;

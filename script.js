@@ -1,11 +1,11 @@
 function adicionarAtividade() {
   let input = document.getElementById("atividade");
-  let texto= input.value.trim();
+  let texto = input.value.trim();
 
   if (texto !== "") {
-    let tarefa= {
-      texto:input.value,
-      concluida:false
+    let tarefa = {
+      texto: input.value,
+      concluida: false,
     };
 
     let li = document.createElement("li");
@@ -28,28 +28,27 @@ function adicionarAtividade() {
 }
 
 function salvarLocalStorage(tarefa) {
-  let tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+  let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
   tarefas.push(tarefa);
 
   localStorage.setItem("tarefas", JSON.stringify(tarefas));
 }
 
-document.addEventListener('DOMContentLoaded',function () {
+document.addEventListener("DOMContentLoaded", function () {
   let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
-  tarefas.forEach(function (tarefa,index) {
-
+  tarefas.forEach(function (tarefa, index) {
     let li = document.createElement("li");
 
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.checked= tarefa.concluida;
+    checkbox.checked = tarefa.concluida;
 
     // quando desnarcar/marcar, salva novamente
-    checkbox.addEventListener('change',function(){
-      tarefas[index].concluida=checkbox.checked;
-      localStorage.setItem('tarefas',JSON.stringify(tarefas));
+    checkbox.addEventListener("change", function () {
+      tarefas[index].concluida = checkbox.checked;
+      localStorage.setItem("tarefas", JSON.stringify(tarefas));
     });
 
     li.appendChild(checkbox);
@@ -62,17 +61,38 @@ document.addEventListener('DOMContentLoaded',function () {
   });
 });
 
-function limparAtividades(){
-  if(confirm('tem certeza que deseja apagar as atividades salvas?')){
-    localStorage.removeItem('tarefas');
-    let lista= document.getElementById('listaDeAtividades');
-    lista.innerHTML='';
+function limparAtividades() {
+  if (confirm("tem certeza que deseja apagar as atividades salvas?")) {
+    localStorage.removeItem("tarefas");
+    let lista = document.getElementById("listaDeAtividades");
+    lista.innerHTML = "";
   }
 }
 
-
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("service-worker.js")
-  .then(()=> console.log("service worker registrado"))
-  .catch(err => console.log("erro", err));
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("service-worker.js")
+    .then(() => console.log("service worker registrado"))
+    .catch((err) => console.log("erro", err));
 }
+
+function mostrarData() {
+  const hoje = new Date();
+
+  const dataFormada = hoje.toLocaleDateString("pt-BR", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
+
+  const elementoData = document.getElementById("date");
+
+  if (elementoData) {
+    elementoData.textContent =
+      dataFormada.charAt(0).toUpperCase() + dataFormada.slice(1);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  mostrarData();
+});
