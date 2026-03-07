@@ -11,16 +11,23 @@
   </head>
   <body>
     <header>
-      <div class="horaAtual">
-        <h1 id="date"></h1>
-      </div>
       <div class="header-container">
+        <section class="horaAtual">
+          <h1 id="date"></h1>
+        </section>
         <div class="logo"></div>
-        <h2>Suas <span>Atividades</span></h2>
+        <div class="progresso-dia">
+          <h2><span>Progresso</span> De Hoje</h2>
+          <p id="porcentagem">0%</p>
+          <div id="barra-progresso">
+            <div id="barra"></div>
+          </div>
+        </div>
       </div>
     </header>
     <main>
       <div class="main-container">
+        <h2>Suas <span>Atividades</span></h2>
         <input
           class="input-atividade"
           id="atividade"

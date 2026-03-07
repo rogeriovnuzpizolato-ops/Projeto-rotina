@@ -27,6 +27,33 @@ function adicionarAtividade() {
   }
 }
 
+function calcularProgresso() {
+  let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+
+  const total = tarefas.length;
+
+  if (total === 0) {
+    atualizarInterface(0);
+    return;
+  }
+
+  const concluidas = tarefas.filter(
+    tarefa => tarefa.concluida === true
+  ).length;
+  const porcentagem = Math.round((concluidas / total) * 100);
+
+  atualizarInterface(porcentagem);
+}
+
+function atualizarInterface(valor) {
+  const texto = document.getElementById("porcentagem");
+  const barra = document.getElementById("barra");
+
+  texto.innerText = valor + "%";
+
+  barra.style.width = valor + "%";
+}
+
 function salvarLocalStorage(tarefa) {
   let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
@@ -49,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     checkbox.addEventListener("change", function () {
       tarefas[index].concluida = checkbox.checked;
       localStorage.setItem("tarefas", JSON.stringify(tarefas));
+      calcularProgresso();
     });
 
     li.appendChild(checkbox);
@@ -59,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     lista.appendChild(li);
   });
+  calcularProgresso();
 });
 
 function limparAtividades() {
@@ -95,4 +124,5 @@ function mostrarData() {
 
 document.addEventListener("DOMContentLoaded", () => {
   mostrarData();
+  calcularProgresso();
 });
