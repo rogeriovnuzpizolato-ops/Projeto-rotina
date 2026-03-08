@@ -1,3 +1,13 @@
+// controle de versão 
+const versaoAtual= "1.1";
+
+const versaoSalva= localStorage.getItem("versao");
+
+if(versaoSalva!== versaoAtual){
+  localStorage.removeItem("dadosRotina");
+  localStorage.setItem("versao",versaoAtual);
+}
+
 function adicionarAtividade() {
   let input = document.getElementById("atividade");
   let texto = input.value.trim();
@@ -38,7 +48,7 @@ function calcularProgresso() {
   }
 
   const concluidas = tarefas.filter(
-    tarefa => tarefa.concluida === true
+    (tarefa) => tarefa.concluida === true,
   ).length;
   const porcentagem = Math.round((concluidas / total) * 100);
 
@@ -53,14 +63,13 @@ function atualizarInterface(valor) {
 
   barra.style.width = valor + "%";
 
-  if(valor<30){
-    barra.style.background="#e74c3c"
-  }else if(valor<65){
-    barra.style.background="#f1c40f"
-  }else{
-    barra.style.background="#2ecc71"
+  if (valor < 30) {
+    barra.style.background = "#e74c3c";
+  } else if (valor < 65) {
+    barra.style.background = "#f1c40f";
+  } else {
+    barra.style.background = "#2ecc71";
   }
-
 }
 
 function salvarLocalStorage(tarefa) {
