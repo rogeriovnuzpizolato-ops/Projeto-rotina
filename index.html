@@ -3,21 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#2e7d32">
+    <meta name="theme-color" content="#2e7d32" />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="favicon-192.png" />
     <title>Projeto-Rotina</title>
   </head>
   <body>
     <header>
       <div class="header-container">
+        <section class="horaAtual">
+          <h1 id="date"></h1>
+        </section>
         <div class="logo"></div>
-        <h1>Minhas <span>atividades</span></h1>
+        <div class="progresso-dia">
+          <h2><span>Progresso</span> De Hoje</h2>
+          <p id="porcentagem">0%</p>
+          <div id="barra-progresso">
+            <div id="barra"></div>
+          </div>
+        </div>
       </div>
     </header>
     <main>
       <div class="main-container">
+        <h2>Suas <span>Atividades</span></h2>
         <input
           class="input-atividade"
           id="atividade"

@@ -3,6 +3,13 @@
   flex-direction: column;
   align-items: center;
 }
+.main-container h2 {
+  color:white;
+  text-align: center;
+}
+.main-container span {
+  color: green;
+}
 .input-atividade {
   margin: 25px;
   width: 100%;
