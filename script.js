@@ -52,6 +52,15 @@ function atualizarInterface(valor) {
   texto.innerText = valor + "%";
 
   barra.style.width = valor + "%";
+
+  if(valor<30){
+    barra.style.background="#e74c3c"
+  }else if(valor<65){
+    barra.style.background="#f1c40f"
+  }else{
+    barra.style.background="#2ecc71"
+  }
+
 }
 
 function salvarLocalStorage(tarefa) {
