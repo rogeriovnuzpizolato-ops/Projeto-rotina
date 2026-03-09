@@ -1,14 +1,22 @@
+verificarNovoDia()
 function verificarNovoDia(){
-  const hoje= new Date().tolSOString().split("T")[0]
-  const ultimaData= localStorage.getItem("ultimaData")
+
+  const hoje = new Date().toISOString().split("T")[0]
+  const ultimaData = localStorage.getItem("ultimaData")
+
+  if(!ultimaData){
+    localStorage.setItem("ultimaData", hoje)
+    return
+  }
 
   if(hoje !== ultimaData){
-    console.log("Novo Dia Detectado");
+    console.log("Novo Dia Detectado")
 
     localStorage.removeItem("tarefas")
 
-    localStorage.setItem("ultimaData",hoje)
+    localStorage.setItem("ultimaData", hoje)
   }
+
 }
 
 // controle de versão 
