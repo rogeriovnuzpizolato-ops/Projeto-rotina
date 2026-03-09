@@ -1,3 +1,16 @@
+function verificarNovoDia(){
+  const hoje= new Date().tolSOString().split("T")[0]
+  const ultimaData= localStorage.getItem("ultimaData")
+
+  if(hoje !== ultimaData){
+    console.log("Novo Dia Detectado");
+
+    localStorage.removeItem("tarefas")
+
+    localStorage.setItem("ultimaData",hoje)
+  }
+}
+
 // controle de versão 
 const versaoAtual= "1.1";
 
