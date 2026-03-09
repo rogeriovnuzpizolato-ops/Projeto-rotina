@@ -10,7 +10,7 @@ function verificarNovoDia(){
   }
 
   if(hoje !== ultimaData){
-    console.log("Novo Dia Detectado")
+    alert("Novo Dia Detectado")
 
     localStorage.removeItem("tarefas")
 
