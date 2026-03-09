@@ -12,7 +12,7 @@ function verificarNovoDia(){
 }
 
 // controle de versão 
-const versaoAtual= "1.1";
+const versaoAtual= "1.2";
 
 const versaoSalva= localStorage.getItem("versao");
 
