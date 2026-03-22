@@ -10,7 +10,7 @@ function verificarNovoDia(){
   }
 
   if(hoje !== ultimaData){
-    alert("Novo Dia Detectado")
+    console.log("Novo Dia Detectado")
 
     localStorage.removeItem("tarefas")
 
@@ -29,34 +29,103 @@ if(versaoSalva!== versaoAtual){
   localStorage.setItem("versao",versaoAtual);
 }
 
-function adicionarAtividade() {
-  let input = document.getElementById("atividade");
-  let texto = input.value.trim();
+function criarCardInput(){
+  const lista= document.getElementById("listaTarefas");
 
-  if (texto !== "") {
-    let tarefa = {
-      texto: input.value,
-      concluida: false,
-    };
+  const card= document.createElement("div")
+  card.classList.add("card")
 
-    let li = document.createElement("li");
-
-    let checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-
-    li.appendChild(checkbox);
-
-    li.appendChild(document.createTextNode("" + tarefa.texto));
-
-    let lista = document.getElementById("listaDeAtividades");
-
-    lista.appendChild(li);
-
-    salvarLocalStorage(tarefa);
-
-    input.value = "";
-  }
+  card.innerHTML=`
+  <input type="text" placeholder="Digite sua atividade" class="inputCard">
+  <button onclick="salvarTarefa(this)">Salvar</button>
+  <button onclick="removerCard(this)">Remover</button>
+  <button onclick="togglePrioridade(this)">Prioridade</button>
+  `
+lista.prepend(card)
 }
+
+function togglePrioridade(botao){
+  botao.classList.toggle("ativo")
+}
+
+let tarefas= JSON.parse(localStorage.getItem("tarefas")) || []
+
+function salvarTarefa(botao){
+  const card= botao.parentElement
+
+  const input= card.querySelector(".inputCard")
+  const texto= input.value
+  if(texto ==="") return
+
+  const prioridade= card.querySelector(".ativo") ? true:false
+
+  const tarefa= {
+    texto: texto,
+    prioridade: prioridade,
+    dataCriacao: new Date().toISOString(),
+    diasDuracao: prioridade ? 3:1
+  }
+
+  tarefas.push(tarefa)
+
+  localStorage.setItem("tarefas",JSON.stringify(tarefas))
+
+  renderizarTarefas()
+}
+
+function removerCard(botao){
+  botao.parentElement.remove()
+} 
+
+function renderizarTarefas(){
+  const lista= document.getElementById("listaTarefas")
+  lista.innerHTML= ""
+
+  tarefas.forEach((tarefa,index)=>{
+    lista.innerHTML +=`
+    <div class="card ${tarefa.prioridade ? "prioridade":""}">
+    <span>${tarefa.texto}</span>
+    <button onclick="removeTarefa(${index})">Remover</button>
+    </div>
+    `
+  })
+}
+
+function removeTarefa(index){
+  tarefas.splice(index,1)
+
+  localStorage.setItem("tarefas",JSON.stringify(tarefas))
+
+  renderizarTarefas()
+}
+// function adicionarAtividade() {
+//   let input = document.getElementById("atividade");
+//   let texto = input.value.trim();
+
+//   if (texto !== "") {
+//     let tarefa = {
+//       texto: input.value,
+//       concluida: false,
+//     };
+
+//     let li = document.createElement("li");
+
+//     let checkbox = document.createElement("input");
+//     checkbox.type = "checkbox";
+
+//     li.appendChild(checkbox);
+
+//     li.appendChild(document.createTextNode("" + tarefa.texto));
+
+//     let lista = document.getElementById("listaDeAtividades");
+
+//     lista.appendChild(li);
+
+//     salvarLocalStorage(tarefa);
+
+//     input.value = "";
+//   }
+// }
 
 function calcularProgresso() {
   let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
