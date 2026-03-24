@@ -4,78 +4,72 @@
   align-items: center;
 }
 .main-container h2 {
-  color:white;
+  color: white;
   text-align: center;
+  margin-bottom: 24px;
 }
 .main-container span {
   color: green;
 }
-.input-atividade {
-  margin: 25px;
-  width: 100%;
-  height: 30px;
-  text-align: center;
-  border: solid 2px green;
-  border-radius: 16px;
+.main-container .botao-adicionar{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid green;
+  margin-bottom: 24px;
 }
-.botoes{
+
+/* css do card começa aqui */
+#listaTarefas{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 12px;
+}
+.card {
+  background: white;
+  padding: 12px;
+  border-radius: 16px;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 8px;
+  color: black;
   align-items: center;
-  justify-content: center;
-  gap: 32px;
+  border: 3px solid green;
 }
-.botao {
-  width: 100px;
-  height: 60px;
-  margin-bottom: 24px;
-  border: solid 2px green;
+.card input{
+  text-align: center;
+  padding: 5px;
   border-radius: 16px;
-  color: green;
+  border: 2px solid green;
 }
-.botao-limpar {
-  width: 100px;
-  height: 60px;
-  margin-bottom: 24px;
-  border: solid 2px orangered;
-  border-radius: 16px;
-  color: orangered;
+.card button{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
-@media screen and (min-width:768px){
-  .input-atividade{
-    height: 64px;
-    font-size: 24px;
-  }
-  .botao{
-    width: 100px;
-    height: 60px;
-    font-size: 20px;
-  }
+.adicionar{
+  background-color: rgb(41, 248, 41);
+  border: 2px solid green;
 }
-/* css da div.lista começa aqui */
-.lista {
-  padding: 24px;
-  background-color: rgba(128, 128, 128, 0.589);
+.remover{
+  background-color: red;
+  border: 2px solid rgb(81, 1, 1);
 }
-.lista input {
-  margin: 10px;
-  width: 16px;
+.botao-prioridade{
+  background-color: rgb(250, 250, 165);
+  border: 2px solid gold;
 }
-.lista ul {
-  list-style: none;
+.prioridade {
+  border-left: 5px solid gold;
 }
-.lista li {
-  color: white;
+button.ativo {
+  background: gold;
+  color: black;
 }
-@media screen and (min-width:768px){
-  .lista input {
-    margin: 20px;
-    width: 24px;
-    height: 24px;
-  }
-  .lista li{
-    font-size: 24px;
-  }
+.removeTarefa{
+  background-color: rgb(146, 2, 2);
+  border: 2px solid red;
+  margin-left: 70px;
 }
 /* css .text-area começa aqui */
 .text-area {
@@ -100,11 +94,11 @@
   border: none;
   border-radius: 16px;
 }
-@media screen and (min-width:768px){
+@media screen and (min-width: 768px) {
   .text-area h2 {
     font-size: 48px;
   }
-  .text-area textarea{
+  .text-area textarea {
     font-size: 24px;
   }
 }

@@ -1,131 +1,113 @@
-verificarNovoDia()
-function verificarNovoDia(){
+verificarNovoDia();
+function verificarNovoDia() {
+  const hoje = new Date().toISOString().split("T")[0];
+  const ultimaData = localStorage.getItem("ultimaData");
 
-  const hoje = new Date().toISOString().split("T")[0]
-  const ultimaData = localStorage.getItem("ultimaData")
-
-  if(!ultimaData){
-    localStorage.setItem("ultimaData", hoje)
-    return
+  if (!ultimaData) {
+    localStorage.setItem("ultimaData", hoje);
+    return;
   }
 
-  if(hoje !== ultimaData){
-    console.log("Novo Dia Detectado")
+  if (hoje !== ultimaData) {
+    console.log("Novo Dia Detectado");
 
-    localStorage.removeItem("tarefas")
+    localStorage.removeItem("tarefas");
 
-    localStorage.setItem("ultimaData", hoje)
+    localStorage.setItem("ultimaData", hoje);
   }
-
 }
 
-// controle de versão 
-const versaoAtual= "1.2";
+// controle de versão
+const versaoAtual = "1.2";
 
-const versaoSalva= localStorage.getItem("versao");
+const versaoSalva = localStorage.getItem("versao");
 
-if(versaoSalva!== versaoAtual){
+if (versaoSalva !== versaoAtual) {
   localStorage.removeItem("dadosRotina");
-  localStorage.setItem("versao",versaoAtual);
+  localStorage.setItem("versao", versaoAtual);
 }
 
-function criarCardInput(){
-  const lista= document.getElementById("listaTarefas");
+function criarCardInput() {
+  const lista = document.getElementById("listaTarefas");
 
-  const card= document.createElement("div")
-  card.classList.add("card")
+  const card = document.createElement("div");
+  card.classList.add("card");
 
-  card.innerHTML=`
+  card.innerHTML = `
   <input type="text" placeholder="Digite sua atividade" class="inputCard">
-  <button onclick="salvarTarefa(this)">Salvar</button>
-  <button onclick="removerCard(this)">Remover</button>
-  <button onclick="togglePrioridade(this)">Prioridade</button>
-  `
-lista.prepend(card)
+  <button class="adicionar" onclick="salvarTarefa(this)">✔</button>
+  <button class="remover" onclick="removerCard(this)">✘</button>
+  <button class="botao-prioridade" onclick="togglePrioridade(this)">✦</button>
+  `;
+  lista.prepend(card);
 }
 
-function togglePrioridade(botao){
-  botao.classList.toggle("ativo")
+function togglePrioridade(botao) {
+  botao.classList.toggle("ativo");
 }
 
-let tarefas= JSON.parse(localStorage.getItem("tarefas")) || []
+let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
-function salvarTarefa(botao){
-  const card= botao.parentElement
+function salvarTarefa(botao) {
+  const card = botao.parentElement;
 
-  const input= card.querySelector(".inputCard")
-  const texto= input.value
-  if(texto ==="") return
+  const input = card.querySelector(".inputCard");
+  const texto = input.value;
+  if (texto === "") return;
 
-  const prioridade= card.querySelector(".ativo") ? true:false
+  const prioridade = card.querySelector(".ativo") ? true : false;
 
-  const tarefa= {
+  const tarefa = {
     texto: texto,
     prioridade: prioridade,
+    cooncluida: false,
     dataCriacao: new Date().toISOString(),
-    diasDuracao: prioridade ? 3:1
-  }
+    diasDuracao: prioridade ? 3 : 1,
+  };
 
-  tarefas.push(tarefa)
+  tarefas.push(tarefa);
 
-  localStorage.setItem("tarefas",JSON.stringify(tarefas))
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
 
-  renderizarTarefas()
+  renderizarTarefas();
 }
 
-function removerCard(botao){
-  botao.parentElement.remove()
-} 
+function removerCard(botao) {
+  botao.parentElement.remove();
+}
 
-function renderizarTarefas(){
-  const lista= document.getElementById("listaTarefas")
-  lista.innerHTML= ""
+function renderizarTarefas() {
+  const lista = document.getElementById("listaTarefas");
+  lista.innerHTML = "";
 
-  tarefas.forEach((tarefa,index)=>{
-    lista.innerHTML +=`
-    <div class="card ${tarefa.prioridade ? "prioridade":""}">
-    <span>${tarefa.texto}</span>
-    <button onclick="removeTarefa(${index})">Remover</button>
+  tarefas.forEach((tarefa, index) => {
+    lista.innerHTML += `
+    <div class="card ${tarefa.prioridade ? "prioridade" : ""}">
+      ${tarefa.concluida ? "concluida":""}
+      <span>${tarefa.texto}</span>
+      <button onclick="toggleConcluida(${index})">✔</button>
+      <button class="removeTarefa" onclick="removeTarefa(${index})">✘</button>
     </div>
-    `
-  })
+    `;
+  });
 }
 
-function removeTarefa(index){
-  tarefas.splice(index,1)
+function removeTarefa(index) {
+  tarefas.splice(index, 1);
+
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+
+  renderizarTarefas();
+}
+
+function toggleConcluida(index){
+  tarefas[index].concluida= !tarefas[index].concluida
 
   localStorage.setItem("tarefas",JSON.stringify(tarefas))
 
   renderizarTarefas()
+  calcularProgresso()
 }
-// function adicionarAtividade() {
-//   let input = document.getElementById("atividade");
-//   let texto = input.value.trim();
-
-//   if (texto !== "") {
-//     let tarefa = {
-//       texto: input.value,
-//       concluida: false,
-//     };
-
-//     let li = document.createElement("li");
-
-//     let checkbox = document.createElement("input");
-//     checkbox.type = "checkbox";
-
-//     li.appendChild(checkbox);
-
-//     li.appendChild(document.createTextNode("" + tarefa.texto));
-
-//     let lista = document.getElementById("listaDeAtividades");
-
-//     lista.appendChild(li);
-
-//     salvarLocalStorage(tarefa);
-
-//     input.value = "";
-//   }
-// }
 
 function calcularProgresso() {
   let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
@@ -230,7 +212,23 @@ function mostrarData() {
   }
 }
 
+function horaAtual(){
+  const hora= new Date();
+  const horaFormada= hora.toLocaleTimeString("pt-BR",{
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+  const elementoHora= document.getElementById("horas");
+
+  if(elementoHora){
+    elementoHora.textContent= horaFormada;
+  }
+}
+
+setInterval(horaAtual,1000);
+
 document.addEventListener("DOMContentLoaded", () => {
   mostrarData();
+  horaAtual();
   calcularProgresso();
 });
