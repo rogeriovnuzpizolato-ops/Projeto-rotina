@@ -15,7 +15,7 @@ export function verificarNovoDia() {
 }
 
 export function verificarVersao() {
-  const versaoAtual = "1.2";
+  const versaoAtual = "1.3";
   const versaoSalva = localStorage.getItem("versao");
 
   if (versaoSalva !== versaoAtual) {
