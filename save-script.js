@@ -1,0 +1,251 @@
+verificarNovoDia();
+function verificarNovoDia() {
+  const hoje = new Date().toISOString().split("T")[0];
+  const ultimaData = localStorage.getItem("ultimaData");
+
+  if (!ultimaData) {
+    localStorage.setItem("ultimaData", hoje);
+    return;
+  }
+
+  if (hoje !== ultimaData) {
+    console.log("Novo Dia Detectado");
+
+    localStorage.removeItem("tarefas");
+
+    localStorage.setItem("ultimaData", hoje);
+  }
+}
+
+// controle de versão
+const versaoAtual = "1.2";
+
+const versaoSalva = localStorage.getItem("versao");
+
+if (versaoSalva !== versaoAtual) {
+  localStorage.removeItem("dadosRotina");
+  localStorage.setItem("versao", versaoAtual);
+}
+
+function criarCardInput() {
+  const lista = document.getElementById("listaTarefas");
+
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  card.innerHTML = `
+  <input type="text" placeholder="Digite sua atividade" class="inputCard">
+  <button class="adicionar" onclick="salvarTarefa(this)">✔</button>
+  <button class="remover" onclick="removerCard(this)">✘</button>
+  <button class="botao-prioridade" onclick="togglePrioridade(this)">✦</button>
+  <label class="habit-toggle">
+    <input type="checkbox" id="isHabit" />
+    <span>É um hábito</span>
+  </label>  
+  `;
+
+  const input= card.querySelector("inputTarefa");
+  const checkbox= card.querySelector(".isHabit");
+  const botao= card.querySelector(".adicionar");
+
+  botao.addEventListener("click",()=>{
+    const texto= input.value;
+    const isHabit= checkbox.checked;
+
+    criarTarefa(texto, isHabit);
+  });
+
+  return card;
+  lista.prepend(card);
+}
+
+function togglePrioridade(botao) {
+  botao.classList.toggle("ativo");
+}
+
+let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+
+function salvarTarefa(botao) {
+  const card = botao.parentElement;
+
+  const input = card.querySelector(".inputCard");
+  const texto = input.value;
+  if (texto === "") return;
+
+  const prioridade = card.querySelector(".ativo") ? true : false;
+
+  const tarefa = {
+    texto: texto,
+    prioridade: prioridade,
+    cooncluida: false,
+    dataCriacao: new Date().toISOString(),
+    diasDuracao: prioridade ? 3 : 1,
+  };
+
+  tarefas.push(tarefa);
+
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+
+  renderizarTarefas();
+}
+
+function removerCard(botao) {
+  botao.parentElement.remove();
+}
+
+function renderizarTarefas() {
+  const lista = document.getElementById("listaTarefas");
+  lista.innerHTML = "";
+
+  tarefas.forEach((tarefa, index) => {
+    lista.innerHTML += `
+    <div class="card ${tarefa.prioridade ? "prioridade" : ""}">
+      ${tarefa.concluida ? "concluida":""}
+      <span>${tarefa.texto}</span>
+      <button onclick="toggleConcluida(${index})">✔</button>
+      <button class="removeTarefa" onclick="removeTarefa(${index})">✘</button>
+    </div>
+    `;
+  });
+}
+
+function removeTarefa(index) {
+  tarefas.splice(index, 1);
+
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+
+  renderizarTarefas();
+}
+
+function toggleConcluida(index){
+  tarefas[index].concluida= !tarefas[index].concluida
+
+  localStorage.setItem("tarefas",JSON.stringify(tarefas))
+
+  renderizarTarefas()
+  calcularProgresso()
+}
+
+function calcularProgresso() {
+  let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+
+  const total = tarefas.length;
+
+  if (total === 0) {
+    atualizarInterface(0);
+    return;
+  }
+
+  const concluidas = tarefas.filter(
+    (tarefa) => tarefa.concluida === true,
+  ).length;
+  const porcentagem = Math.round((concluidas / total) * 100);
+
+  atualizarInterface(porcentagem);
+}
+
+function atualizarInterface(valor) {
+  const texto = document.getElementById("porcentagem");
+  const barra = document.getElementById("barra");
+
+  texto.innerText = valor + "%";
+
+  barra.style.width = valor + "%";
+
+  if (valor < 30) {
+    barra.style.background = "#e74c3c";
+  } else if (valor < 65) {
+    barra.style.background = "#f1c40f";
+  } else {
+    barra.style.background = "#2ecc71";
+  }
+}
+
+function salvarLocalStorage(tarefa) {
+  let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+
+  tarefas.push(tarefa);
+
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+
+  tarefas.forEach(function (tarefa, index) {
+    let li = document.createElement("li");
+
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = tarefa.concluida;
+
+    // quando desnarcar/marcar, salva novamente
+    checkbox.addEventListener("change", function () {
+      tarefas[index].concluida = checkbox.checked;
+      localStorage.setItem("tarefas", JSON.stringify(tarefas));
+      calcularProgresso();
+    });
+
+    li.appendChild(checkbox);
+
+    li.appendChild(document.createTextNode("" + tarefa.texto));
+
+    let lista = document.getElementById("listaDeAtividades");
+
+    lista.appendChild(li);
+  });
+  calcularProgresso();
+});
+
+function limparAtividades() {
+  if (confirm("tem certeza que deseja apagar as atividades salvas?")) {
+    localStorage.removeItem("tarefas");
+    let lista = document.getElementById("listaDeAtividades");
+    lista.innerHTML = "";
+  }
+}
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("service-worker.js")
+    .then(() => console.log("service worker registrado"))
+    .catch((err) => console.log("erro", err));
+}
+
+function mostrarData() {
+  const hoje = new Date();
+
+  const dataFormada = hoje.toLocaleDateString("pt-BR", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
+
+  const elementoData = document.getElementById("date");
+
+  if (elementoData) {
+    elementoData.textContent =
+      dataFormada.charAt(0).toUpperCase() + dataFormada.slice(1);
+  }
+}
+
+function horaAtual(){
+  const hora= new Date();
+  const horaFormada= hora.toLocaleTimeString("pt-BR",{
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+  const elementoHora= document.getElementById("horas");
+
+  if(elementoHora){
+    elementoHora.textContent= horaFormada;
+  }
+}
+
+setInterval(horaAtual,1000);
+
+document.addEventListener("DOMContentLoaded", () => {
+  mostrarData();
+  horaAtual();
+  calcularProgresso();
+});
