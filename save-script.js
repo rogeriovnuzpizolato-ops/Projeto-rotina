@@ -38,7 +38,24 @@ function criarCardInput() {
   <button class="adicionar" onclick="salvarTarefa(this)">✔</button>
   <button class="remover" onclick="removerCard(this)">✘</button>
   <button class="botao-prioridade" onclick="togglePrioridade(this)">✦</button>
+  <label class="habit-toggle">
+    <input type="checkbox" id="isHabit" />
+    <span>É um hábito</span>
+  </label>  
   `;
+
+  const input= card.querySelector("inputTarefa");
+  const checkbox= card.querySelector(".isHabit");
+  const botao= card.querySelector(".adicionar");
+
+  botao.addEventListener("click",()=>{
+    const texto= input.value;
+    const isHabit= checkbox.checked;
+
+    criarTarefa(texto, isHabit);
+  });
+
+  return card;
   lista.prepend(card);
 }
 

@@ -5,6 +5,14 @@
   font-size: 16px;
   margin-bottom: 16px;
 }
+.hora {
+  text-align: center;
+  width: 100%;
+  color: green;
+  font-size: 16px;
+  margin-bottom: 16px;
+  border: 1px solid blue;
+}
 .header-container h2 {
   color:white;
   text-align: center;
