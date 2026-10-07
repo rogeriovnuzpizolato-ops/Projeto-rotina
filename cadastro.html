@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar conta | Rotina</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="pagina-auth">
+    <div class="cartao-auth">
+      <h1 class="marca">Rotina</h1>
+      <p class="subtitulo">Crie sua conta para organizar o dia.</p>
+
+      <p class="mensagem-erro" id="erro" role="alert"></p>
+
+      <form id="formCadastro">
+        <div class="campo">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" autocomplete="new-password" minlength="6" required>
+        </div>
+        <div class="campo">
+          <label for="confirmar">Confirmar senha</label>
+          <input type="password" id="confirmar" name="confirmar" autocomplete="new-password" minlength="6" required>
+        </div>
+        <button class="botao" type="submit">Criar conta</button>
+      </form>
+
+      <p class="troca-auth">Já tem conta? <a href="login.html">Entrar</a></p>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
