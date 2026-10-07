@@ -1,52 +1,59 @@
-<!doctype html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#2e7d32" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="manifest" href="manifest.json" />
-    <link rel="icon" href="favicon-192.png" />
-    <title>Projeto-Rotina</title>
-  </head>
-  <body>
-    <header>
-      <div class="header-container">
-        <section class="horaAtual">
-          <h1 id="date"></h1>
-        </section>
-        <div class="Hora">
-          <h2 id="horas"></h2>
-        </div>
-        <div class="logo"></div>
-        <div class="progresso-dia">
-          <h2><span>Progresso</span> De Hoje</h2>
-          <p id="porcentagem">0%</p>
-          <div id="barra-progresso">
-            <div id="barra"></div>
-          </div>
-        </div>
-      </div>
-    </header>
-    <main>
-      <div class="main-container">
-        <h2>Adicione Suas <span>Atividades</span></h2>
-        <button class="botao-adicionar">+</button>
-      </div>
-    </main>
-    <div id="listaTarefas"></div>
-    <div class="text-area">
-      <h2>detalhes <span> do dia</span></h2>
-
-      <textarea
-        name="detalhes do dia"
-        id="reflexao"
-        placeholder="detalhes do seu dia."
-      ></textarea>
-
-      <button class="botao" onclick="salvarReflexao()">Salvar Texto</button>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotina</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <div>
+      <h1>Rotina</h1>
+      <p id="dataHoje"></p>
     </div>
+    <button class="sair" id="btnSair" type="button">Sair</button>
+  </header>
 
-   <script src="script.js"></script>
-  </body>
+  <main>
+    <p class="mensagem-erro" id="erro" role="alert"></p>
+
+    <section class="progresso" id="progresso" aria-label="Progresso do dia">
+      <div class="progresso-cabecalho">
+        <div>
+          <h2 class="progresso-titulo">Progresso de hoje</h2>
+          <p class="progresso-detalhe" id="textoProgresso">Adicione uma tarefa para começar.</p>
+        </div>
+        <span class="progresso-percentual" id="percentual">0%</span>
+      </div>
+      <div class="barra" id="barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="barra-preenchimento" id="preenchimento"></div>
+      </div>
+    </section>
+
+    <form class="form-nova" id="formNova">
+      <input type="text" id="titulo" placeholder="O que você quer fazer hoje?" maxlength="255" required>
+      <input type="text" id="descricao" class="descricao" placeholder="Detalhes (opcional)" maxlength="255">
+      <button type="submit">Adicionar</button>
+    </form>
+
+    <section aria-label="Tarefas de hoje">
+      <div class="lista" id="listaHoje"></div>
+    </section>
+
+    <section class="secao-vencidas" id="secaoVencidas" aria-label="Tarefas vencidas" hidden>
+      <h2 class="secao-titulo">Vencidas: recriar para hoje ou ignorar</h2>
+      <div class="lista" id="listaVencidas"></div>
+    </section>
+
+    <p class="aviso-reset">
+      Todo dia às 3h as tarefas concluídas são removidas e as pendentes viram vencidas.
+    </p>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
 </html>
