@@ -1,4 +1,481 @@
-@import url(header.css);
-@import url(global.css);
-@import url(main.css);
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
 
+:root {
+  --preto: #070a08;
+  --painel: #0e1410;
+  --painel-alto: #131b16;
+  --borda: #1e2a22;
+  --borda-forte: #34473b;
+  --verde: #3bd67f;
+  --verde-escuro: #17803f;
+  --verde-suave: rgba(59, 214, 127, 0.12);
+  --texto: #e6eee8;
+  --texto-fraco: #86978c;
+  --vencida: #d65f5f;
+  --vencida-suave: rgba(214, 95, 95, 0.12);
+  --raio: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--preto);
+  color: var(--texto);
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--verde);
+  outline-offset: 2px;
+}
+
+/* ---------- Login e cadastro ---------- */
+
+.pagina-auth {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.cartao-auth {
+  width: 100%;
+  max-width: 380px;
+  background: var(--painel);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 40px 32px;
+}
+
+.marca {
+  font-family: 'Fraunces', serif;
+  font-size: 1.9rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.subtitulo {
+  color: var(--texto-fraco);
+  font-size: 0.92rem;
+  margin: 0 0 28px;
+}
+
+.campo {
+  margin-bottom: 16px;
+}
+
+.campo label {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--texto-fraco);
+  margin-bottom: 6px;
+}
+
+.campo input {
+  width: 100%;
+  padding: 11px 12px;
+  background: var(--preto);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  color: var(--texto);
+  font-size: 0.95rem;
+}
+
+.campo input:focus {
+  border-color: var(--verde);
+  outline: none;
+}
+
+.botao {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--verde);
+  color: #04130a;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.botao:hover {
+  background: #52e093;
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.troca-auth {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--texto-fraco);
+}
+
+.troca-auth a {
+  color: var(--verde);
+  text-decoration: none;
+}
+
+.troca-auth a:hover {
+  text-decoration: underline;
+}
+
+.mensagem-erro {
+  display: none;
+  background: var(--vencida-suave);
+  border: 1px solid var(--vencida);
+  color: #f2b3b3;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  margin: 0 0 16px;
+}
+
+.mensagem-erro.visivel {
+  display: block;
+}
+
+/* ---------- Tela principal ---------- */
+
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 24px 0;
+}
+
+.topo h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.topo p {
+  color: var(--texto-fraco);
+  font-size: 0.85rem;
+  margin: 2px 0 0;
+  text-transform: capitalize;
+}
+
+.sair {
+  background: transparent;
+  border: 1px solid var(--borda-forte);
+  color: var(--texto-fraco);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.sair:hover {
+  color: var(--texto);
+  border-color: var(--texto-fraco);
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 24px 60px;
+}
+
+/* Barra de progresso */
+
+.progresso {
+  background: var(--painel);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 20px 22px 22px;
+  margin-bottom: 24px;
+}
+
+.progresso-cabecalho {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.progresso-titulo {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.progresso-detalhe {
+  margin: 2px 0 0;
+  font-size: 0.82rem;
+  color: var(--texto-fraco);
+}
+
+.progresso-percentual {
+  font-family: 'Fraunces', serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--verde);
+}
+
+.barra {
+  height: 14px;
+  background: var(--preto);
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.barra-preenchimento {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--verde-escuro), var(--verde));
+  border-radius: 999px;
+  transition: width 0.6s ease;
+}
+
+.progresso.completo {
+  border-color: var(--verde-escuro);
+}
+
+.progresso.completo .barra-preenchimento {
+  box-shadow: 0 0 14px rgba(59, 214, 127, 0.55);
+}
+
+/* Formulário de nova tarefa */
+
+.form-nova {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.form-nova input {
+  padding: 12px 14px;
+  background: var(--painel);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  color: var(--texto);
+  font-size: 0.92rem;
+}
+
+.form-nova input:focus {
+  border-color: var(--verde);
+  outline: none;
+}
+
+.form-nova .descricao {
+  grid-column: 1;
+}
+
+.form-nova button {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  padding: 0 24px;
+  background: var(--verde);
+  color: #04130a;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-nova button:hover {
+  background: #52e093;
+}
+
+/* Listas */
+
+.secao-titulo {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--texto-fraco);
+  margin: 0 0 12px;
+}
+
+.secao-vencidas {
+  margin-top: 34px;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tarefa {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  background: var(--painel);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+}
+
+.tarefa.vencida {
+  border-left: 3px solid var(--vencida);
+}
+
+.marcar {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  margin-top: 1px;
+  border-radius: 50%;
+  border: 2px solid var(--borda-forte);
+  background: transparent;
+  color: transparent;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.marcar:hover {
+  border-color: var(--verde);
+}
+
+.tarefa.concluida .marcar {
+  background: var(--verde);
+  border-color: var(--verde);
+  color: #04130a;
+}
+
+.tarefa-conteudo {
+  flex: 1;
+  min-width: 0;
+}
+
+.tarefa-titulo {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.tarefa.concluida .tarefa-titulo {
+  color: var(--texto-fraco);
+  text-decoration: line-through;
+}
+
+.tarefa-descricao {
+  margin: 4px 0 0;
+  font-size: 0.86rem;
+  color: var(--texto-fraco);
+  overflow-wrap: anywhere;
+}
+
+.tarefa-data {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.76rem;
+  color: var(--borda-forte);
+}
+
+.selo-vencida {
+  display: inline-block;
+  margin-bottom: 6px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--vencida-suave);
+  color: var(--vencida);
+  font-size: 0.74rem;
+  font-weight: 500;
+}
+
+.tarefa-acoes {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.tarefa-acoes button {
+  background: transparent;
+  border: 1px solid var(--borda-forte);
+  color: var(--texto-fraco);
+  border-radius: 7px;
+  padding: 6px 11px;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.tarefa-acoes button:hover {
+  color: var(--texto);
+  border-color: var(--texto-fraco);
+}
+
+.tarefa-acoes button.recriar:hover {
+  color: var(--verde);
+  border-color: var(--verde);
+}
+
+.tarefa-acoes button.excluir:hover {
+  color: var(--vencida);
+  border-color: var(--vencida);
+}
+
+.vazio {
+  text-align: center;
+  color: var(--texto-fraco);
+  padding: 40px 0;
+  font-size: 0.9rem;
+}
+
+.aviso-reset {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--texto-fraco);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 520px) {
+  .form-nova {
+    grid-template-columns: 1fr;
+  }
+
+  .form-nova button {
+    grid-column: 1;
+    grid-row: auto;
+    padding: 12px;
+  }
+
+  .tarefa {
+    flex-wrap: wrap;
+  }
+
+  .tarefa-acoes {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barra-preenchimento {
+    transition: none;
+  }
+}
